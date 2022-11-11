@@ -1,0 +1,23 @@
+﻿@model MVCExampleProjekt.Models.Kund
+@using Microsoft.AspNetCore.Http
+
+
+<h1>NyKund</h1>
+
+<div>
+    <h4>Skapa ny kund</h4>
+    <h3></h3>
+    <form action="SparaNyKund" method="POST">
+        <label>Namn</label><input type="text" name="realname" />
+        <label>Användarnamn</label><input type="text" name="username" />
+        <label>Språk</label><input type="text" name="language" />
+        <button type="submit">Skicka!</button>
+
+    </form>
+</div>
+
+    @if(ViewBag.Message != null){
+    <h4 style="border: 1px solid red; padding: 5px;">
+            Meddelande @ViewBag.Message
+           </h4>
+}

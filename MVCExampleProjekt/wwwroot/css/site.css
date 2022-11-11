@@ -1,0 +1,30 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.tabcontainer {
+    display: grid;
+    grid-template-columns:2fr 1fr 1fr; 
+}
+
+.tabell {
+    min-width: 200px;
+    padding: 8px 15px;
+    background-color : lightblue;
+    border: 1px solid darkblue; 
+}

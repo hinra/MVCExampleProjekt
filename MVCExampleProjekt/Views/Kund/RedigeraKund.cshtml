@@ -1,0 +1,18 @@
+﻿@model Kund; 
+
+<div>
+    <h4>Skapa ny kund</h4>
+    <h3></h3>
+    <form action="/Kund/SparaNyKund" method="POST">
+        <label>Namn</label><input type="text" name="realname" value="@Model.realname"/>
+        <label>Användarnamn</label><input type="text" name="username" value="@Model.username" />
+        <label>Lösenord</label><input type="password" name="password" value="@Model.password" />
+        <label>Språk</label><input type="text" name="language" value="@Model.language" />
+        <button type="submit">Skicka!</button>
+
+    </form>
+    <hr />
+    <h6>Meddelande: @ViewBag.Message</h6>
+</div>
+
+

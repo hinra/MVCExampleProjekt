@@ -1,0 +1,34 @@
+﻿
+
+
+<style>
+    .message { padding: 10px; border: 2px solid red; background-color: salmon; color: darkred;}
+    .kundlista { border: 3px solid blue; }
+    .kundlista-rad:nth-child(2n-1) {background-color: lightblue; }
+    h2 { background-color: lightgray; }
+</style>
+
+
+ @if(ViewBag.Message != null){
+    <h4 style="border: 1px solid red; padding: 5px;">
+            Meddelande @ViewBag.Message
+           </h4>
+ }
+    
+
+@model List<Kund>
+
+<div class="kundlista">
+    <h2>Alla våra kunder</h2>
+    @if(Model != null){
+    foreach(Kund k in Model){
+        <div class="tabcontainer">
+               <span class="tabell"> @k.realname </span>
+                <span class="tabell">@Html.ActionLink("Redigera","RedigeraKundPara","Kund", new {Id = k.Id}) </span>
+                <span class="tabell"> @Html.ActionLink("Radera","RaderaKundPara","Kund", new {Id = k.Id})</span>
+        </div>
+    }
+    }
+  
+
+</div>
