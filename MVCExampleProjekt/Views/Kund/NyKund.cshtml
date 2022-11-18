@@ -1,5 +1,4 @@
 ﻿@model MVCExampleProjekt.Models.Kund
-@using Microsoft.AspNetCore.Http
 
 
 <h1>NyKund</h1>
@@ -7,13 +6,29 @@
 <div>
     <h4>Skapa ny kund</h4>
     <h3></h3>
-    <form action="SparaNyKund" method="POST">
-        <label>Namn</label><input type="text" name="realname" />
+
+    @if (Model == null)  // Om ingen har skickats från Kundcontroller
+    {
+        <form action="SparaNyKundByClass" method="POST">
+            <label>Namn</label><input type="text" name="realname" />
         <label>Användarnamn</label><input type="text" name="username" />
         <label>Språk</label><input type="text" name="language" />
         <button type="submit">Skicka!</button>
 
-    </form>
+        </form>
+    }
+    else  // Om Model är fylld med data
+    {
+        <form action="/Kund/SparaNyKundByClass" method="POST">
+            <label>Namn</label><input type="text" name="realname" value="@Model.realname" />
+            <label>Användarnamn</label><input type="text" name="username" value="@Model.username" />
+            <label>Språk</label><input type="text" name="language" value="@Model.language" />
+            <button type="submit">Skicka!</button>
+
+        </form>
+        
+    }
+
 </div>
 
     @if(ViewBag.Message != null){

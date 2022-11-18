@@ -1,18 +1,50 @@
 ﻿@model Kund; 
 
-<div>
-    <h4>Skapa ny kund</h4>
-    <h3></h3>
-    <form action="/Kund/SparaNyKund" method="POST">
-        <label>Namn</label><input type="text" name="realname" value="@Model.realname"/>
-        <label>Användarnamn</label><input type="text" name="username" value="@Model.username" />
-        <label>Lösenord</label><input type="password" name="password" value="@Model.password" />
-        <label>Språk</label><input type="text" name="language" value="@Model.language" />
-        <button type="submit">Skicka!</button>
+<style>
+    .partialexample {
+        border: 2px dashed red; 
+    }
+</style>
 
-    </form>
-    <hr />
-    <h6>Meddelande: @ViewBag.Message</h6>
+@if (ViewBag.Message != null)
+{
+    <h4 style="border: 1px solid red; padding: 5px;">
+        Meddelande @ViewBag.Message
+    </h4>
+}
+
+<h3> Tre olika sätt för formulär</h3>
+
+
+@*Automatisk genererad formulär med hjälp VS assistenten. *@
+<div class="partialexample">
+    <partial name="/Views/Partials/RedigeraKundPartial.cshtml" />
+   
 </div>
 
+<hr />
 
+@* Data av detta formulär skicka till metoden RedigeraKundByParameter i KundController.cs
+    Ordning av parameter spelar ingen roll, de hittar varandra pga namnet
+*@
+<form action="/Kund/RedigeraKundByParameter" method="POST">
+    <label>Namn</label><input type="text" name="realname" value="@Model.realname" />
+    <label>Användarnamn</label><input type="text" name="username" value="@Model.username" />
+    <label>Språk</label><input type="text" name="language" value="@Model.language" />
+    <button type="submit">Skicka!</button>
+
+</form>
+
+<hr />
+
+@* Data av detta formulär skicka till metoden RedigeraKundByClass i KundController.cs
+    Om name-attribut passar ihop skapas ett objekt av typen  'Kund' 
+    OBS! alla egenskaper måste ha get/set (se Kund.cs rad 17-34)
+*@
+<form action="/Kund/RedigeraKundByClass" method="POST">
+    <label>Namn</label><input type="text" name="realname" value="@Model.realname" />
+    <label>Användarnamn</label><input type="text" name="username" value="@Model.username" />
+    <label>Språk</label><input type="text" name="language" value="@Model.language" />
+    <button type="submit">Skicka!</button>
+
+</form>

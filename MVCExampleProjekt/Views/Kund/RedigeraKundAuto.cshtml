@@ -1,0 +1,17 @@
+﻿@model MVCExampleProjekt.Models.Kund
+
+@{
+    ViewData["Title"] = "RedigeraKundAuto";
+}
+
+<h1>RedigeraKundAuto</h1>
+
+<partial name="/Views/Partials/RedigeraKundPartial.cshtml" />
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

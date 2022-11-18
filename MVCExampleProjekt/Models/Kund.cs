@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,21 +11,31 @@ namespace MVCExampleProjekt.Models
         /// <summary>
         /// Ett unikt namn för varje kund. Borde innehåller 8 tecken. 
         /// </summary>
-        
-        public int Id { get; set; } 
-        public string username { get; set; } 
-        public string? password { get; set; }
-        public string? realname { get; set; }
-        public string? language { get; set; }
-
-        public int? age;
-        public int? credit;
-        public List<string>? items;
 
 
-        // Statiska metod, anropas Kund.generateFakeKund();
+        [ScaffoldColumn(false)]
+		public int Id { get; set; }
 
-        public static Kund generateFakeKund()
+        [DisplayName("Användarnamn eller Epost")]
+		[Required(ErrorMessage = "Ange ett namn pucko!"), MaxLength(30)]
+		public string username { get; set; } 
+
+
+        public string password { get; set; }
+        [DisplayName("fullständig namn")]
+        public string realname { get; set; }
+
+       public string language { get; set; }
+
+        public int? age { get; set; }
+		public int? credit { get; set; }
+        [ScaffoldColumn(false)]
+        public List<string> items { get; set; }
+
+
+		// Statiska metod, anropas Kund.generateFakeKund();
+
+		public static Kund generateFakeKund()
         {
             return new Kund()
             {
@@ -66,9 +77,24 @@ namespace MVCExampleProjekt.Models
             return list;    
         }
 
+        // statiska klassvariabler och metoder
 
-       
+       // static public List<Kund> minDatabas;
+		//static public int HighiestID=0;
 
+	/*	static public bool InitDB()
+        {
+            if (minDatabas == null)
+            {
+                minDatabas = new List<Kund>();
+                minDatabas.AddRange(generateFakeKundList());
+                HighiestID = 4532 + 1; 
+
+				return true;
+            }
+            else return false;
+
+        }*/
 
         public override string ToString()
         {

@@ -10,7 +10,8 @@ namespace MVCExampleProjekt.Controllers
     {
         public IActionResult Index()
         {
-            return View(Kund.generateFakeKundList()); 
+            
+            return View(Kund.generateFakeKundList() ); 
         }
 
         public IActionResult RedigeraKundP(int guid, int id)
@@ -28,9 +29,8 @@ namespace MVCExampleProjekt.Controllers
 
 
 
-        public IActionResult Detaljer()
-        {
-            // någon process som ta fram rätt kund.
+        public IActionResult VisaKund()
+        {            
             Kund k = new Kund()
             {
                 realname = "Jon Köpingsson",
@@ -47,67 +47,78 @@ namespace MVCExampleProjekt.Controllers
 
 
             [HttpPost]
-        public ActionResult SparaNyKund(string username, string realname, string language)
+        public ActionResult RedigeraKundByParameter(string username, string realname, string language)
         {
             string s = realname + " (" + username + ", lang = " + language + ")";
 
-            ViewBag.Message = s; 
+            ViewBag.Message = "Det redigerades kunden " + s; 
                
                 return View("Index"); // Leda fel om det inte finns Kund/Index.cshtml        
         }
 
 
-        public ActionResult RedigeraKundPara(int id, string type)
+		public ActionResult RedigeraKund(int id)
         {
-            ViewBag.Message = "Inputparameter: id=" + id + ", type=" + type ;
-
-            // Plocka fram rätt Kund från DB med hjälp av Id
-
-            List<Kund> kList = Kund.generateFakeKundList();
-
-            Kund searchresult = null; 
-            foreach(Kund k in kList)
-            {
-                if(k.Id == id) {  searchresult = k; break; };
-            }
-
-            return View("RedigeraKund", searchresult); 
+            // Genererar Fake-kund och skicka till /Kund/RedigeraKund.cshtml, fyller @model med kunden
+            // Senare kommer vi med hjälp id plocka fram rätt kund.
+            Kund k = Kund.generateFakeKund();
+            ViewBag.Message = "Redigera Kund ID=" + id; 
+            return View(k); 
         }
 
-        public ActionResult RedigeraKund()
+
+        public ActionResult RaderaKund(int id)
         {
-            ViewBag.Message = "Önskad aktion: redigera en kund";
-            // mer kod som hämta kund-data från databasen (senare moment i kursen) 
-            Kund k = Kund.generateFakeKund(); 
-            return View(k);
+            // Genererar Fake-kund och skicka till /Kund/RedigeraKund.cshtml, fyller @model med kunden
+            // Senare kommer vi med hjälp id plocka fram rätt kund.
+            Kund k = Kund.generateFakeKund();
+            ViewBag.Message = "Kunden med ID=" + id + " togs bort!";
+            return View("Index", Kund.generateFakeKundList());
         }
 
 
         [HttpPost]
-        public ActionResult SparaKundByClass(Kund inkommandeK)
+        public ActionResult RedigeraKundByClass(Kund inkommandeK)
         {
+            ModelState.Remove("items");  // Måste finnas, pga av ett fel jag gjorde när jag la upp modellen kund.
             if (ModelState.IsValid)
             {
-                Kund nyK = new Kund()
-                {
-                    username = inkommandeK.username,
-                    realname = inkommandeK.realname,
-                    language = inkommandeK.language
-                };
-
                 //Går något med kunden, tex spara i DB
 
-
-                return View("Index");
+                // tillbaka till /Kund/Index
+                ViewBag.Message = "Det redigerades kunden " + inkommandeK.ToString();
+                return View("Index", Kund.generateFakeKundList() ); // inte rätt men vi kan returnera något!
             }
             else
             {
+                // något gick snett
                 return View("Redigera");
             }
             
         }
 
+		public ActionResult SparaNyKundByClass(Kund inkommandeK)
+		{
 
-        
-    }
+            ModelState.Remove("password");  //För att det kommer inget password från formuläret!
+            ModelState.Remove("items");
+            if (ModelState.IsValid)
+			{
+				//Går något med kunden, tex spara i DB
+                ViewBag.Message = "Det sparades den nya kunden" + inkommandeK.ToString();
+				// tillbaka till /Kund/Index
+				return View("Index", Kund.generateFakeKundList()); // Tillbaka till Kund/Index.cshtml  (För att vi är i Kundcontrollern!) 
+			}
+			else
+			{
+				ViewBag.Message = "Det gick inte att spara " + inkommandeK.ToString();
+				// något gick snett vi skicka tillbaka till 
+				return View( "NyKund", inkommandeK);
+			}
+
+		}
+
+
+
+	}
 }

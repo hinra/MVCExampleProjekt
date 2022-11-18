@@ -19,11 +19,10 @@ body {
 
 .tabcontainer {
     display: grid;
-    grid-template-columns:2fr 1fr 1fr; 
+    grid-template-columns:3fr 1fr 1fr; 
 }
 
-.tabell {
-    min-width: 200px;
+.tabell {    
     padding: 8px 15px;
     background-color : lightblue;
     border: 1px solid darkblue; 
