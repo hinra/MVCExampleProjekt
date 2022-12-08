@@ -10,8 +10,8 @@ namespace MVCExampleProjekt.Controllers
     {
         public IActionResult Index()
         {
-            
-            return View(Kund.generateFakeKundList() ); 
+            List<Kund> allaKunder = Kund.generateFakeKundList();
+            return View( allaKunder ); 
         }
 
         public IActionResult RedigeraKundP(int guid, int id)
@@ -92,7 +92,7 @@ namespace MVCExampleProjekt.Controllers
             else
             {
                 // något gick snett
-                return View("Redigera");
+                return View("RedigeraKund");
             }
             
         }
