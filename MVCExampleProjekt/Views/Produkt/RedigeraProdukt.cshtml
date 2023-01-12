@@ -3,3 +3,12 @@
 *@
 @{
 }
+@model Produkt
+
+<form asp-action="sparaProdukt" method="post">
+    <label>Produktnamn</label><input type="text" name="produktnamn" value="@Model.produktnamn" /><br />
+    <label>Tillverkare</label><input type="text" name="tillverkare" value="@Model.tillverkare" /><br />
+    <label>Pris</label><input type="text" name="pris" value="@Model.pris" /><br />
+    <input type="hidden" name="id" value="@Model.id" /><br />
+    <button type="submit">Spara ändringar</button>
+</form>

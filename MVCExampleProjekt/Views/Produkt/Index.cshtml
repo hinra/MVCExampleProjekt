@@ -1,5 +1,13 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
+@model List<Produkt>
+
+    <ol>
+@foreach(Produkt prd in Model)
+{
+        <li>@prd.produktnamn (@prd.tillverkare) --- @Html.ActionLink("Visa detaljer","showDetail","Produkt", new {Id = prd.id})
+        </li>
 }
+</ol>
+
