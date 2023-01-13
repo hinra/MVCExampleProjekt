@@ -19,31 +19,36 @@ namespace MVCExampleProjekt.Models
             return new Produkt(); 
         }
 
+        /// <summary>
+        /// Statisk metod som hämta all data från tabellen produkt 
+        /// </summary>
+        /// <returns></returns>
         public static List<Produkt> getAllProdukt()
         {
            
-            List<Produkt> list = new List<Produkt>();
-            MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
-            MySqlCommand MyCom = new MySqlCommand("Select * from produkt", conn);
-            
-            conn.Open(); 
+            List<Produkt> list = new List<Produkt>(); // förberedda en lista för all data
+            MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr); // skapa förbindelse 'conn' till databasen
+            MySqlCommand MyCom = new MySqlCommand("Select * from produkt", conn); // skapa sql-sats för 'conn'
+             
+            conn.Open(); // öppna kanal till databasen
 
-            MySqlDataReader reader = MyCom.ExecuteReader(); 
+            MySqlDataReader reader = MyCom.ExecuteReader();  // skicka satsen till DB och spara svaret i 'reader'
 
-            while(reader.Read())
+            while(reader.Read())  // while håller på tills ingen data kvar
+                // en omgång per rad i databastabellen
             {
-                Produkt p = new Produkt();
-                p.id = reader.GetInt32("id");
-                p.produktnamn = reader.GetString("produktnamn");
-                p.tillverkare = reader.GetString("tillverkare");
-                p.pris = reader.GetDouble("pris");
-                list.Add(p);               
+                Produkt p = new Produkt(); // Skapa ny objekt av typen Produkt
+                p.id = reader.GetInt32("id");  // hämta värde från kolumnen 'id'
+                p.produktnamn = reader.GetString("produktnamn");// hämta värde från kolumnen 'produktnamn'
+                p.tillverkare = reader.GetString("tillverkare");  // ...
+                p.pris = reader.GetDouble("pris"); // ...
+                list.Add(p);                // spara objektet i listan 
             }
 
-            MyCom.Dispose(); 
-            conn.Close(); 
+            MyCom.Dispose();  // släng förbindelse
+            conn.Close();  // stäng kanalen till DB
 
-            return list;
+            return list; 
 		}
 
         public static Produkt getSingleProduktById(int id)
