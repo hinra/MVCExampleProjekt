@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using MVCExampleProjekt.Other;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using MySql.Data.MySqlClient; 
 
 namespace MVCExampleProjekt.Models
 {
@@ -50,58 +52,38 @@ namespace MVCExampleProjekt.Models
             };
         }
 
-        public static List<Kund> generateFakeKundList()
+        
+
+        internal static Kund GetKundById(int kundID)
         {
-            List<Kund> list = new List<Kund>();
-            list.Add(generateFakeKund());
+            // Se ovan för förklaring           
+            MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
+            MySqlCommand MyCom = new MySqlCommand("Select * from kund where id = @ID", conn);
+            MyCom.Parameters.AddWithValue("@ID", kundID);
+            conn.Open();
 
-            list.Add(new Kund()
+            MySqlDataReader reader = MyCom.ExecuteReader();
+
+            Kund singleK = new Kund();
+            if (reader.Read())
             {
-                Id = 1234,
-                username = "Johnny@flamingo.br",
-                realname = "Johnny G. Flamingo",
-                language = "es",
-                age = 25,
-                credit = 400
-            });
+                singleK.Id = reader.GetInt32("Id");
+                singleK.realname = reader.GetString("realname");
+                singleK.username = reader.GetString("username");
+                singleK.age = reader.GetInt32("age");
 
-            list.Add(new Kund()
-            {
-                Id = 4532,
-                username = "pjotr.Stakasvilli@georgien.go",
-                realname = "Pjotr Stakasvilli",
-                language = "go",
-                age = 17,
-                credit = 0
-            });
-            return list;    
-        }
-
-        // statiska klassvariabler och metoder
-
-       // static public List<Kund> minDatabas;
-		//static public int HighiestID=0;
-
-	/*	static public bool InitDB()
-        {
-            if (minDatabas == null)
-            {
-                minDatabas = new List<Kund>();
-                minDatabas.AddRange(generateFakeKundList());
-                HighiestID = 4532 + 1; 
-
-				return true;
             }
-            else return false;
 
-        }*/
+            MyCom.Dispose();
+            conn.Close();
+
+            return singleK;
+        }
 
         public override string ToString()
         {
             return realname + "( " + username + " )";
-        }
-
-       
+        }       
 
     } // End of class Kund
 }

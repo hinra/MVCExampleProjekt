@@ -50,11 +50,14 @@ namespace MVCExampleProjekt.Models
 
             return list; 
 		}
-
+        /// <summary>
+        ///  Hämta en specifik produkt med en viss id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static Produkt getSingleProduktById(int id)
         {
-           
-           
+           // Se ovan för förklaring           
             MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
             MySqlCommand MyCom = new MySqlCommand("Select * from produkt where id = @ID", conn);
             MyCom.Parameters.AddWithValue("@ID", id);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVCExampleProjekt.Models; 
 
 namespace MVCExampleProjekt.Controllers
 {
@@ -6,7 +7,9 @@ namespace MVCExampleProjekt.Controllers
 	{
 		public IActionResult Index()
 		{
-			return View();
+            List<Order> allaOrder = Order.getEveryOrder();  
+			return View(allaOrder);
+
 		}
 
         public IActionResult NyOrder()
