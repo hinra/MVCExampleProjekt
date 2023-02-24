@@ -58,7 +58,7 @@ namespace MVCExampleProjekt.Models
         {
             // Se ovan för förklaring           
             MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
-            MySqlCommand MyCom = new MySqlCommand("Select * from kund where id = @ID", conn);
+            MySqlCommand MyCom = new MySqlCommand("Select * from Kund where id = @ID", conn);
             MyCom.Parameters.AddWithValue("@ID", kundID);
             conn.Open();
 
@@ -70,7 +70,10 @@ namespace MVCExampleProjekt.Models
                 singleK.Id = reader.GetInt32("Id");
                 singleK.realname = reader.GetString("realname");
                 singleK.username = reader.GetString("username");
+                singleK.password= reader.GetString("password");
                 singleK.age = reader.GetInt32("age");
+                singleK.language = reader.GetString("language");
+                singleK.credit = reader.GetInt32("credit"); 
 
             }
 
@@ -80,7 +83,35 @@ namespace MVCExampleProjekt.Models
             return singleK;
         }
 
-        public override string ToString()
+		internal static Kund GetAllaKunder()
+		{
+			// Se ovan för förklaring           
+			MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
+			MySqlCommand MyCom = new MySqlCommand("Select * from kund", conn);
+			conn.Open();
+
+			MySqlDataReader reader = MyCom.ExecuteReader();
+
+			Kund singleK = new Kund();
+			if (reader.Read())
+			{
+				singleK.Id = reader.GetInt32("Id");
+				singleK.realname = reader.GetString("realname");
+				singleK.username = reader.GetString("username");
+				singleK.password = reader.GetString("password");
+				singleK.age = reader.GetInt32("age");
+				singleK.language = reader.GetString("language");
+				singleK.credit = reader.GetInt32("credit");
+
+			}
+
+			MyCom.Dispose();
+			conn.Close();
+
+			return singleK;
+		}
+
+		public override string ToString()
         {
             return realname + "( " + username + " )";
         }       

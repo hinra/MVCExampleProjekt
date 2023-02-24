@@ -1,4 +1,9 @@
-﻿@{
-    Layout = "_Layout";  // --> _Layout.cshtml används som mall för alla views 
-    ViewData["Title"] = "Startsida Webbshop"; // Används i _ViewStart.cshtml
+﻿@inject IHttpContextAccessor Accessor
+
+@{
+    Layout = "_Layout";
+
+    // Kommer åt Session-variabeln. 
+    ViewBag.AktuellNamn = Accessor.HttpContext.Session.GetString("namn");  
+    
 }

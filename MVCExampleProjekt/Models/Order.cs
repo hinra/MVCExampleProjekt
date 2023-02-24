@@ -22,7 +22,7 @@ namespace MVCExampleProjekt.Models
             List<Order> orders = new List<Order>();
             MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr); // skapa förbindelse 'conn' till databasen
             conn.Open(); // öppna kanal till databasen
-            MySqlCommand MyCom = new MySqlCommand("Select * from order", conn); // skapa sql-sats för 'conn'
+            MySqlCommand MyCom = new MySqlCommand("Select * from Orders", conn); // skapa sql-sats för 'conn'
             MySqlDataReader reader = MyCom.ExecuteReader();  // skicka satsen till DB och spara svaret i 'reader'
             while (reader.Read())  // while håller på tills ingen data kvar
                                    // en omgång per rad i databastabellen
@@ -35,7 +35,7 @@ namespace MVCExampleProjekt.Models
                 int KundID = reader.GetInt32("KundId");
                 Kund k = Kund.GetKundById(KundID);
                 ord.Bestallare = k;
-                string[] prId = reader.GetString("inkopsList").Split(","); 
+                string[] prId = reader.GetString("inkopsLista").Split(","); 
                 
                 List<Produkt> prList = new List<Produkt>();
                 foreach(string pr in prId)

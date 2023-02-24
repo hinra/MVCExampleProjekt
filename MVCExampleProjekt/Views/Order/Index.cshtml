@@ -1,14 +1,18 @@
 ﻿@model List<Order>
 
-	<ul>
-	@foreach(Order o in Model){
-		<li>Order @o.Id : Kund: @o.Bestallare.realname
-		<ul>
-			@foreach(Produkt p in o.inkopslist)
-			{
-				<li>@p.produktnamn, @p.tillverkare Pris: @p.pris</li>
-			}
-		</ul>
+<ul>
+	@foreach (Order o in Model)
+	{
+		<li>
+			Order @o.Id : Kund: @o.Bestallare.realname
+			<ul>
+				@foreach (Produkt p in o.inkopslist)
+				{
+					<li>@p.produktnamn, @p.tillverkare Pris: @p.pris</li>
+				}
+			</ul>
 		</li>
 	}
 </ul>
+
+

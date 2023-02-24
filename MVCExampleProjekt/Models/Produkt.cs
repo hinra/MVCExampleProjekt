@@ -28,7 +28,7 @@ namespace MVCExampleProjekt.Models
            
             List<Produkt> list = new List<Produkt>(); // förberedda en lista för all data
             MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr); // skapa förbindelse 'conn' till databasen
-            MySqlCommand MyCom = new MySqlCommand("Select * from produkt", conn); // skapa sql-sats för 'conn'
+            MySqlCommand MyCom = new MySqlCommand("Select * from Produkt", conn); // skapa sql-sats för 'conn'
              
             conn.Open(); // öppna kanal till databasen
 
@@ -59,12 +59,13 @@ namespace MVCExampleProjekt.Models
         {
            // Se ovan för förklaring           
             MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
-            MySqlCommand MyCom = new MySqlCommand("Select * from produkt where id = @ID", conn);
+            MySqlCommand MyCom = new MySqlCommand("Select * from Produkt where id = @ID", conn);
             MyCom.Parameters.AddWithValue("@ID", id);
             conn.Open();
 
-            MySqlDataReader reader = MyCom.ExecuteReader();
+            MySqlDataReader reader = MyCom.ExecuteReader(); 
 
+            
             Produkt singleP = new Produkt();
             if (reader.Read())
             {
