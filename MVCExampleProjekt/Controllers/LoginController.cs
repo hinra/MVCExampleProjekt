@@ -21,14 +21,16 @@ namespace MVCExampleProjekt.Controllers
             // Skpa Employee, fyll den med uppgifter från databasen
             Employee nyBesökare = Employee.GetEmployeeByMail(emp.mailadress); 
 
-            //Kolla om lösen är rätt
+            //Kolla om användaren finns och lösen är rätt
+            // annars felmeddelande 
+
 
             //Spara nyBesökare i Session-variablar
             HttpContext.Session.SetString("mailadress", nyBesökare.mailadress);
             HttpContext.Session.SetString("namn", nyBesökare.namn);
             HttpContext.Session.SetString("roll", nyBesökare.roll);
 
-            return RedirectToAction("Index", "Home"); // Skicka till HomeControllern -->Index. 
+            return RedirectToAction("Index", "Home"); // Skicka till HomeController -->Index. 
         }
 
 

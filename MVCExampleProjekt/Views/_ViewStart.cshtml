@@ -1,9 +1,17 @@
 ﻿@inject IHttpContextAccessor Accessor
 
 @{
-    Layout = "_Layout";
-
     // Kommer åt Session-variabeln. 
-    ViewBag.AktuellNamn = Accessor.HttpContext.Session.GetString("namn");  
-    
+    ISession ses = Accessor.HttpContext.Session; 
+    ViewBag.AktuellNamn = ses.GetString("namn");
+
+    string roll = ses.GetString("roll"); 
+
+    switch (roll)
+    {
+        case "admin": Layout = "_LayoutAdmin"; break;
+        case "salesperson" : Layout = "_LayoutSale"; break; 
+        default: Layout = "_LayoutGuest"; break; 
+    } 
+
 }

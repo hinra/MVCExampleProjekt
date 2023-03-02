@@ -85,7 +85,6 @@ namespace MVCExampleProjekt.Models
 
         public static bool sparaProdukt(Produkt p)
         {
-           
             MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
             MySqlCommand MyCom = new MySqlCommand("UPDATE produkt set produktnamn = @PRNAMN, tillverkare = @TILL, pris = @PRIS where id = @ID ", conn);
             MyCom.Parameters.AddWithValue("@PRNAMN", p.produktnamn);
@@ -101,18 +100,8 @@ namespace MVCExampleProjekt.Models
 
             if (rader == 0) return false; else return true ;
 
-
         }
 
-        public static List<Produkt> generateFakeProduktList()
-        {
-            List<Produkt> list = new List<Produkt>();
-
-            list.Add(generateFakeProdukt());
-            list.Add(new Produkt());
-            list.Add(new Produkt());
-            list.Add(new Produkt());
-            return list; 
-        }
+        
     }
 }

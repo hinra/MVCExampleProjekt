@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVCExampleProjekt.Other;
+using System.ComponentModel.DataAnnotations;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace MVCExampleProjekt.Models
 {
@@ -25,19 +28,37 @@ namespace MVCExampleProjekt.Models
 
         public static Employee GetEmployeeByMail(string mail)
         {
-            Employee employee = new Employee();
-            //... Hämta från databasen ... 
-            // .... kolla Kund.cs ....
-            // .... låtsas svar från DB
-            employee.password = "12345";
-            employee.namn = "Johnny Flamingo"; 
-            employee.mailadress = "master@mvc.com";
-            employee.roll= "admin";
-            employee.Id= 1; 
+           
+            MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
+            MySqlCommand MyCom = new MySqlCommand("Select * from Employee where mailadress = @ADDR", conn);
+            MyCom.Parameters.AddWithValue("@ADDR", mail);
+            conn.Open();
 
-            // Men vad gör vi om den inte finns i databasen?
+            MySqlDataReader reader = MyCom.ExecuteReader();
+
+
+            Employee employee = new Employee();
+            if (reader.Read())
+            {
+                employee.Id = reader.GetInt32("id");
+                employee.namn = reader.GetString("namn");
+                employee.mailadress = reader.GetString("mailadress");
+                employee.roll = reader.GetString("roll");
+
+            }
+            else
+            {
+                // Men vad gör vi om den inte finns i databasen?
+            }
+
+            MyCom.Dispose();
+            conn.Close();
 
             return employee;
+
+           
+
+           
         }
 
     }

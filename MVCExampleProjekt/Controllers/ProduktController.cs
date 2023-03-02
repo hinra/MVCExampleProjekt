@@ -14,6 +14,10 @@ namespace MVCExampleProjekt.Controllers
 
         public IActionResult RedigeraProdukt()
         {
+            // kolla behörigheter
+            if (HttpContext.Session.GetString("roll") != "admin") {
+            return RedirectToAction("Error", "Home");
+            }
             return View();
         }
 

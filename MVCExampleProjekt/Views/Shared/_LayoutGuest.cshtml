@@ -23,34 +23,13 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kund" asp-action="Index">Kundhantering</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Produkter</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Beställningar</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Logga in</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Speciale! </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Produkter</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                        </li>
+                        </li>                 
                     </ul>
                 </div>
-                <span> Hello @ViewBag.AktuellNamn </span>
+                <span> Hello @ViewBag.AktuellNamn (Gäst)</span>
             </div>
         </nav>
     </header>
