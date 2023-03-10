@@ -18,12 +18,16 @@ namespace MVCExampleProjekt.Controllers
             ModelState.Remove("namn");
             ModelState.Remove("roll");
             if (!ModelState.IsValid) return View("index"); // om inte korrekt
-            // Skpa Employee, fyll den med uppgifter från databasen
-            Employee nyBesökare = Employee.GetEmployeeByMail(emp.mailadress); 
+                                                           // Skapa Employee, fyll den med uppgifter från databasen
+            Employee nyBesökare = Employee.GetEmployeeByMail(emp.mailadress);
 
             //Kolla om användaren finns och lösen är rätt
             // annars felmeddelande 
-
+            if (nyBesökare.password != emp.password)
+            {
+                ViewBag.LoginError = true;
+                return View("index");
+            }
 
             //Spara nyBesökare i Session-variablar
             HttpContext.Session.SetString("mailadress", nyBesökare.mailadress);

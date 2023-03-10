@@ -44,6 +44,7 @@ namespace MVCExampleProjekt.Models
                 employee.namn = reader.GetString("namn");
                 employee.mailadress = reader.GetString("mailadress");
                 employee.roll = reader.GetString("roll");
+                employee.password = reader.GetString("password");   
 
             }
             else

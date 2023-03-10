@@ -1,56 +1,40 @@
-﻿
-
-
-<style>
-	.message {
-		padding: 10px;
-		border: 2px solid red;
-		background-color: salmon;
-		color: darkred;
-	}
-
-	.kundlista {
-		border: 3px solid blue;
-	}
-
-	.kundlista-rad:nth-child(2n-1) {
-		background-color: lightblue;
-	}
-
-	h2 {
-		background-color: lightgray;
-	}
-</style>
-
-
-@if (ViewBag.Message != null)
+﻿@if (ViewBag.Meddelande != null)
 {
-	<h4 style="border: 1px solid red; padding: 5px;">
-		Meddelande @ViewBag.Message
+	<h4 class="text-info">
+		Meddelande: @ViewBag.Meddelande
 	</h4>
 }
 
 
 @model List<Kund>
 
-<div class="kundlista">
+
 	<h>Alla våra kunder</h>
+	<table class="table ">  <!-- Styla tabellen med bootstrap-->
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Name</th>
+				<th scope="col">Aktion: Redigera</th>
+				<th scope="col">Aktion: Radera</th>
+			</tr>
+		</thead>
 	@if (Model != null)
 	{
 		foreach (Kund k in Model)
 		{
-			<div class="tabcontainer">
-				<span class="tabell">(@k.Id:)  @k.realname </span>
-				<span class="tabell">@Html.ActionLink("Redigera","RedigeraKund","Kund", new {Id = k.Id}) </span>
-				<span class="tabell"> @Html.ActionLink("Radera","RaderaKund","Kund", new {Id = k.Id})</span>
-			</div>
+			<tr>
+				<td>@k.Id</td>
+				<td>  @k.realname </td>
+				<td>@Html.ActionLink("Redigera","RedigeraKund","Kund", new {Id = k.Id}) </td>
+					<td class="table-danger"> @Html.ActionLink("Radera","RaderaKund","Kund", new {Id = k.Id},new { onclick = "return confirm('Är du säkert ?');"})</td>
+			</tr>
 		}
-		@Html.ActionLink("Ny kund", "NyKund","Kund")
-		
 	}
-
-	
-
-
-
-</div>
+	</table>
+@if (ViewBag.Meddelande != null)
+{
+	<h4 class="text-info">
+		Meddelande: @ViewBag.Meddelande
+	</h4>
+}
