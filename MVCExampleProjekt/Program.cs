@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +18,17 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseAuthorization();
 app.UseSession();
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+      Path.Combine(Directory.GetCurrentDirectory(), "Upload")),
+    RequestPath = "/Upload"
+});
 
 //standard route
 app.MapControllerRoute(

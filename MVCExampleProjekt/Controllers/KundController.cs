@@ -16,7 +16,15 @@ namespace MVCExampleProjekt.Controllers
         }
 
 
-        public ActionResult NyKund()
+		public IActionResult AllaKunder()
+		{
+			List<Kund> AllaKunder = Kund.HämtaAllaKunder();
+
+			return View(AllaKunder);
+		}
+
+
+		public ActionResult NyKund()
         {
 
             return View();
@@ -61,10 +69,10 @@ namespace MVCExampleProjekt.Controllers
             Kund k = Kund.RaderaKund(id);
             if (k == null)
             {
-                ViewBag.Meddelande = "Kund " + k.realname + " kunde inte raderas!";
+                TempData["Meddelande"] = "Kund " + k.realname + " kunde inte raderas!";
             }
             else {
-                ViewBag.Meddelande = "Kund " + k.realname + " raderades!";
+				TempData["Meddelande"] = "Kund " + k.realname + " raderades!";
             }
             return RedirectToAction("Index");
         }

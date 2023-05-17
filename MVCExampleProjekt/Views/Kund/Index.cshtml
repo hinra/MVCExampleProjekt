@@ -1,40 +1,40 @@
-﻿@if (ViewBag.Meddelande != null)
+﻿@if (TempData["Meddelande"] != null)
 {
 	<h4 class="text-info">
-		Meddelande: @ViewBag.Meddelande
+		Meddelande: @TempData["Meddelande"]
 	</h4>
 }
-
 
 @model List<Kund>
 
 
-	<h>Alla våra kunder</h>
-	<table class="table ">  <!-- Styla tabellen med bootstrap-->
-		<thead>
-			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">Name</th>
-				<th scope="col">Aktion: Redigera</th>
-				<th scope="col">Aktion: Radera</th>
-			</tr>
-		</thead>
+<h>Alla våra kunder</h>
+
+
+<table class="table">
+	<!-- Styla tabellen med bootstrap-->
+	<thead>
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Name</th>
+			<th scope="col">Aktion: Redigera</th>
+			<th scope="col">Aktion: Radera</th>
+		</tr>
+	</thead>
 	@if (Model != null)
 	{
 		foreach (Kund k in Model)
 		{
 			<tr>
-				<td>@k.Id</td>
+				@{
+					string tt = k.username + " - ( Kredit: " + k.credit + ")";
+				}
+				<td title="@tt">@k.Id</td>
 				<td>  @k.realname </td>
 				<td>@Html.ActionLink("Redigera","RedigeraKund","Kund", new {Id = k.Id}) </td>
-					<td class="table-danger"> @Html.ActionLink("Radera","RaderaKund","Kund", new {Id = k.Id},new { onclick = "return confirm('Är du säkert ?');"})</td>
+				<td class="table-danger"> @Html.ActionLink("Radera","RaderaKund","Kund", new {Id = k.Id},new { onclick = "return confirm('Är du säkert ?');"})</td>
 			</tr>
 		}
 	}
-	</table>
-@if (ViewBag.Meddelande != null)
-{
-	<h4 class="text-info">
-		Meddelande: @ViewBag.Meddelande
-	</h4>
-}
+</table>
+

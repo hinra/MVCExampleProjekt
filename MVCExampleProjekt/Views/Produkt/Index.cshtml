@@ -3,11 +3,26 @@
 *@
 @model List<Produkt>
 
-    <ol>
+    <table class="table">
+<thead>
+	<tr>
+		<th scope="col">ID</th>
+		<th scope="col">Namn</th>
+		<th scope="col">Tillverkare</th>
+		<th scope="col">Pris</th>
+		<th scope="col">Aktion: Redigera</th>
+		<th scope="col">Aktion: Radera</th>
+	</tr>
+</thead>
 @foreach(Produkt prd in Model)
 {
-        <li>@prd.produktnamn (@prd.tillverkare) --- @Html.ActionLink("Visa detaljer","showDetail","Produkt", new {Id = prd.id})
-        </li>
+	<tr>
+		<td scope="col">ID</td>
+		<td scope="col">@prd.produktnamn</td>
+		<td scope="col">@prd.tillverkare</td>
+		<td scope="col">@prd.pris</td>
+		<td scope="col">@Html.ActionLink("Redigera","Redigera","Produkt", new {Id = prd.id})</td>
+		<td scope="col">@Html.ActionLink("Radera","Radera","Produkt", new {Id = prd.id})</td>
+	</tr>
 }
-</ol>
-
+</table>

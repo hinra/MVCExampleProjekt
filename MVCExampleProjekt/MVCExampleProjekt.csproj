@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Upload\06503728-7022-4950-be97-d4fea5a40f12.jpg" />
+    <Content Include="Upload\1b701e38-fabb-484f-942c-441a55acfe85.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="MySql.Data" Version="8.0.31" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
   </ItemGroup>

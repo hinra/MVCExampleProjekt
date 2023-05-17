@@ -1,0 +1,37 @@
+﻿@model MVCExampleProjekt.Models.Produkt
+
+<h4>Produkt</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SparaNyProdukt">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="produktnamn" class="control-label"></label>
+                <input asp-for="produktnamn" class="form-control" />
+                <span asp-validation-for="produktnamn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="tillverkare" class="control-label"></label>
+                <input asp-for="tillverkare" class="form-control" />
+                <span asp-validation-for="tillverkare" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="pris" class="control-label"></label>
+                <input asp-for="pris" class="form-control" />
+                <span asp-validation-for="pris" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Spara ny produkt" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -66,6 +66,35 @@ namespace MVCExampleProjekt.Models
             return singleK;
         }
 
+		internal static Kund GetKundByUsername(String username)
+		{
+			// Se ovan för förklaring           
+			MySqlConnection conn = new MySqlConnection(DatabaseVariables.conStr);
+			MySqlCommand MyCom = new MySqlCommand("Select * from Kund where username = @UNAME", conn);
+			MyCom.Parameters.AddWithValue("@UNAME", username);
+			conn.Open();
+
+			MySqlDataReader reader = MyCom.ExecuteReader();
+
+			Kund singleK = new Kund();
+			if (reader.Read())
+			{
+				singleK.Id = reader.GetInt32("Id");
+				singleK.realname = reader.GetString("realname");
+				singleK.username = reader.GetString("username");
+				singleK.password = reader.GetString("password");
+				singleK.age = reader.GetInt32("age");
+				singleK.language = reader.GetString("language");
+				singleK.credit = reader.GetInt32("credit");
+
+			}
+
+			MyCom.Dispose();
+			conn.Close();
+
+			return singleK;
+		}
+
 		internal static List<Kund> HämtaAllaKunder()
 		{
 			// Se ovan för förklaring           
